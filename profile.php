@@ -1,10 +1,24 @@
 <?php
-echo "<h2>Group Members</h2>";
+// connect to SQLite database
+$db = new SQLite3('members.db');
 
+// query data
+$result = $db->query("SELECT * FROM members");
+
+echo "<h2>Group Members</h2>";
 echo "<ul>";
-echo "<li>An Xinli - Member 1</li>";
-echo "<li>Huang Jia Li - Member 2</li>";
-echo "<li>Huang Yu Chen - Member 3</li>";
+
+while ($row = $result->fetchArray()) {
+    echo "<li>";
+    echo $row['name'] . "<br>";
+    
+    // show image
+    echo "<img src='" . $row['image'] . "' width='100'><br>";
+    
+    echo $row['email'];
+    echo "</li><br>";
+}
+
 echo "</ul>";
 
 echo "<br><a href='index.php'>Back to Home</a>";
